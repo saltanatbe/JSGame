@@ -1,14 +1,24 @@
-for(let i=0; i<5; i++){
-    console.log("yes")
-}
 
 var seconds
 var display_seconds
 
+let colors = ["red", "green", "blue", "yellow", "purple", "cyan", "orange"]
+
+let canvas = document.querySelector('.canv');
+let game = canvas.getContext("2d");
+canvas.width = 300;
+canvas.height = 300;
+var cur_x, cur_y, width
+var count = 0
+
+let time 
+
+let start_btn = document.querySelector('#start')
+var input = document.querySelector("#game-time");
+
 function start_timer (){
     seconds = (Math.floor ((seconds-0.1)*100) / 100).toFixed(1);
     display_seconds.innerHTML = `${seconds}`;
-    console.log(seconds)
     if (seconds == 0.0) {
         document.querySelector("#result-header").classList.remove("hide");
         game.clearRect(0, 0, canvas.width, canvas.height);
@@ -18,16 +28,9 @@ function start_timer (){
         clearInterval(time);
     }
 }
-let time = setInterval(start_timer, 100)
 
-let colors = ["red", "green", "blue", "yellow", "purple", "cyan", "orange", "black"]
 
-let canvas = document.querySelector('.canv');
-let game = canvas.getContext("2d");
-canvas.width = 300;
-canvas.height = 300;
-var cur_x, cur_y, width
-var count = 0
+
 
 function getCursorPosition(canvas, event) {
     const rect = canvas.getBoundingClientRect()
@@ -61,14 +64,12 @@ function start_game() {
     console.log("game started")
     seconds = document.querySelector('#game-time').value;
     display_seconds = document.querySelector('#time');
+    time = setInterval(start_timer, 100)
     start_timer()
     start_drawing()
 }
 
-
-let start_btn = document.querySelector('#start')
 start_btn.addEventListener("click", start_game);
-var input = document.querySelector("#game-time");
 
 input.addEventListener("change", function () {
     if (document.querySelector("#time-header").classList.contains("hide")) {
